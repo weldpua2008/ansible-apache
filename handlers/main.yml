@@ -1,0 +1,11 @@
+---
+# handlers file for ansible-apache
+- name: restart apache
+  service:
+    name: "{{ apache.daemon }}"
+    state: restarted
+
+- name: reload apache
+  service:
+    name: "{{ apache.daemon }}"
+    state: reloaded

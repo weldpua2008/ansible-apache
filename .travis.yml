@@ -1,0 +1,89 @@
+language: python
+python: '2.7'
+sudo: required
+env:
+  #matrix:
+  - ANSIBLE_VERSION=latest
+  - ANSIBLE_VERSION=1.4
+  - ANSIBLE_VERSION=1.4.1
+  - ANSIBLE_VERSION=1.4.2
+  - ANSIBLE_VERSION=1.4.3
+  - ANSIBLE_VERSION=1.4.4
+  - ANSIBLE_VERSION=1.4.5
+  - ANSIBLE_VERSION=1.5.1
+  - ANSIBLE_VERSION=1.5.2
+  - ANSIBLE_VERSION=1.5.3
+  - ANSIBLE_VERSION=1.5.4
+  - ANSIBLE_VERSION=1.5.5
+  - ANSIBLE_VERSION=1.6
+  - ANSIBLE_VERSION=1.6.1
+  - ANSIBLE_VERSION=1.6.2
+  - ANSIBLE_VERSION=1.6.3
+  - ANSIBLE_VERSION=1.6.4
+  - ANSIBLE_VERSION=1.6.5
+  - ANSIBLE_VERSION=1.6.6
+  - ANSIBLE_VERSION=1.6.7
+  - ANSIBLE_VERSION=1.6.8
+  - ANSIBLE_VERSION=1.6.9
+  - ANSIBLE_VERSION=1.6.10
+  - ANSIBLE_VERSION=1.7
+  - ANSIBLE_VERSION=1.7.1
+  - ANSIBLE_VERSION=1.7.2
+  - ANSIBLE_VERSION=1.8
+  - ANSIBLE_VERSION=1.8.1
+  - ANSIBLE_VERSION=1.8.2
+  - ANSIBLE_VERSION=1.8.3
+  - ANSIBLE_VERSION=1.8.4
+  - ANSIBLE_VERSION=1.9.0.1
+  - ANSIBLE_VERSION=1.9.1
+  - ANSIBLE_VERSION=1.9.2
+
+branches:
+  only:
+  - master
+#  - stable
+
+services:
+  - docker
+
+before_install:
+  - docker pull ubuntu:14.04
+  - docker pull ubuntu:12.04
+  - docker pull centos:5
+  - docker pull centos:6
+  - docker pull centos:7
+  - docker pull fedora:22
+  - docker pull debian:8.1
+  - docker pull debian:8.0
+  - docker pull debian:7.8
+  - docker pull debian:7
+  - docker pull opensuse
+  - docker pull opensuse:13.2
+  - docker pull opensuse:13.1
+
+script:
+ # Run tests on Ubuntu 14
+ - docker run --rm=true -v `pwd`:/ansible-apache:rw ubuntu:14.04 /bin/bash -c "/ansible-apache/tests/test-on-deb.sh $ANSIBLE_SHORT_VERSION"
+ # Run tests on Ubuntu 12
+ - docker run --rm=true -v `pwd`:/ansible-apache:rw ubuntu:12.04 /bin/bash -c "/ansible-apache/tests/test-on-deb.sh $ANSIBLE_SHORT_VERSION"
+# Run tests on debian 8
+ - docker run --rm=true -v `pwd`:/ansible-apache:rw debian:8 /bin/bash -c "/ansible-apache/tests/test-on-deb.sh $ANSIBLE_SHORT_VERSION"
+
+ # Run tests on CentOs 6
+ - docker run --rm=true -v `pwd`:/ansible-apache:rw centos:6 /bin/bash -c "/ansible-apache/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
+ # Run tests on CentOs 7
+ - docker run --rm=true -v `pwd`:/ansible-apache:rw centos:7 /bin/bash -c "/ansible-apache/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
+
+ # Run tests on fedora 22
+# - docker run --rm=true -v `pwd`:/ansible-apache:rw fedora:22 /bin/bash -c "/ansible-apache/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
+
+ # Run tests on opensuse 13.2
+# - docker run --rm=true -v `pwd`:/ansible-apache:rw opensuse:13.2 /bin/bash -c "/ansible-apache/tests/test-on-rpm.sh $ANSIBLE_SHORT_VERSION"
+
+
+
+#notifications:
+#  email: false
+#  hipchat:
+#    rooms:
+

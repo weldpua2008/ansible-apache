@@ -1,0 +1,6 @@
+{% for item in apache.listen_ports %}
+NameVirtualHost *:{{item}}
+{% endfor %}
+{% for item in apache.listen_ports %}
+Listen {{item}}
+{% endfor %}
