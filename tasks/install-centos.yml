@@ -1,0 +1,7 @@
+---
+- name: install apache packages
+  yum: pkg={{ item }} state=installed
+  with_items: apache_apache_packages
+  tags:
+    - apache
+

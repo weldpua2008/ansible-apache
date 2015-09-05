@@ -1,2 +1,13 @@
 ---
 # defaults file for ansible-apache
+apache_listen_ports:
+  - 80
+  - 443
+apache_vhosts: []
+apache_vhosts_ssl: []
+
+apache_mods_enabled:
+- rewrite.load
+apache_mods_disabled: []
+apache_create_vhosts: true
+apache_remove_default_vhost: true

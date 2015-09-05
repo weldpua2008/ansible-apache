@@ -1,6 +1,9 @@
-{% for item in apache.listen_ports %}
+{% if apache_version_slim == '2.2' %}
+{% for item in apache_listen_ports %}
 NameVirtualHost *:{{item}}
 {% endfor %}
-{% for item in apache.listen_ports %}
+{% endif %}
+
+{% for item in apache_listen_ports %}
 Listen {{item}}
 {% endfor %}

@@ -1,15 +1,10 @@
 ---
-server_root: /etc/httpd
-apache:
-    listen_ports: [ 80 ]
-    daemon: apache2
-    server_root: "{{server_root}}"
-    sites_available_path: "{{ server_root }}sites-available"
-    sites_enabled_path: "{{ server_root }}/sites-enabled"
-    default_vhost: "{{ server_root }}/conf.d/welcome.conf"
-    apache_packages:
-      - httpd
-      - httpd-devel
-      - mod_ssl
-    mods_enabled:
-      - rewrite.load
+apache_server_root: /etc/httpd
+apache_daemon: apache2
+apache_sites_available_path: "{{ apache_server_root }}sites-available"
+apache_sites_enabled_path: "{{ apache_server_root }}/sites-enabled"
+apache_apache_packages:
+    - httpd
+    - httpd-devel
+    - mod_ssl
+

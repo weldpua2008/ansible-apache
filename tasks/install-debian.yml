@@ -1,0 +1,6 @@
+---
+- name: install apache packages
+  apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=86400
+  with_items: apache_apache_packages
+  tags:
+    - apache
