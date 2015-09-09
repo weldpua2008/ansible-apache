@@ -1,7 +1,11 @@
+[![Build Status](https://travis-ci.org/weldpua2008/ansible-apache.svg?branch=master)](https://travis-ci.org/weldpua2008/ansible-apache)
 Role Name
 ========
 
-A brief description of the role goes here.
+Install apache 2
+
+
+
 
 Requirements
 ------------
@@ -25,14 +29,14 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: weldpua2008.ansible-apache, apache_listen_ports: [80, 443] }
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Valeriy Solovyov

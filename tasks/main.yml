@@ -5,6 +5,16 @@
   tags:
     - apache
 
+- include: install-debian.yml
+  when: "ansible_os_family == 'Debian'"
+  tags:
+    - apache
+
+- include: install-centos.yml
+  when: "ansible_os_family == 'RedHat'"
+  tags:
+    - apache
+
 - name: Get installed version of Apache.
   shell: "{{ apache_daemon }} -v"
   changed_when: false
@@ -25,22 +35,8 @@
   tags:
     - apache
 
-
-
-- include: install-debian.yml
-  when: "ansible_os_family == 'Debian'"
-  tags:
-    - apache
-
-- include: install-centos.yml
-  when: "ansible_os_family == 'RedHat'"
-  tags:
-    - apache
-
-
 - name: Include apache specific vars
   include_vars: apache-{{ apache_version_slim }}.yml
-
 
 #
 #- include_vars: apache-22.yml
