@@ -33,6 +33,27 @@
   tags:
     - apache
 
+- name:  Create directories for sites available/enabled.
+  file:
+    path: "{{ apache_default_vhost_filename }}"
+    state: directory
+  with_items:
+    - "{{apache_sites_available_path}}"
+    - "{{apache_sites_enabled_path}}"
+
+  tags:
+    - apache
+
+- name: Configure Apache to  include sites-enabled  (RedHat).
+  lineinfile:
+    dest={{ apache_server_root  }}/conf/{{ apache_daemon }}.conf
+    regexp="^Include sites-enabled"
+    line="Include sites-enabled/*"
+    state=present
+  tags:
+    - apache
+
+
 - name: Add apache vhosts configuration.
   template:
     src: "vhosts-{{ apache_version_slim }}.conf.j2"
