@@ -12,18 +12,20 @@ ANSIBLE_VAR=""
 ANSIBLE_INVENTORY="tests/test-inventory"
 ANSIBLE_PLAYBOOk="tests/test.yml"
 ANSIBLE_LOG_LEVEL="-vvv"
+APACHE_CTL="apache2ctl"
 
 # if there wasn't sudo then ansible couldn't use it
 if [ "x$SUDO" == "x" ];then
     SUDO_OPTION=""
 fi
 
-#if [ "${OS_TYPE}" == "centos" ];then
-#    if [ "${OS_VERSION}" == "7" ];then
-#        ANSIBLE_VAR="apache_use_service=False"
-#    fi
-#
-#fi
+if [ "${OS_TYPE}" == "centos" ];then
+    APACHE_CTL="apachectl"
+    if [ "${OS_VERSION}" == "7" ];then
+        ANSIBLE_VAR="apache_use_service=False"
+    fi
+fi
+
 ANSIBLE_EXTRA_VARS=""
 if [ "${ANSIBLE_VAR}x" == "x" ];then
     ANSIBLE_EXTRA_VARS=" -e \"${ANSIBLE_VAR}\" "
@@ -46,7 +48,8 @@ function test_playbook(){
     ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_PLAYBOOk} ${ANSIBLE_LOG_LEVEL} --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' ) || (echo 'Idempotence test: fail' && exit 1)
 }
 function extra_tests(){
-    php --version|| (echo "php --version was failed" && exit 100 )
+
+    ${APACHE_CTL} configtest || (echo "php --version was failed" && exit 100 )
 }
 
 function main(){
