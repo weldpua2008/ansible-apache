@@ -1,6 +1,7 @@
 ---
 apache_server_root: /etc/apache2
 apache_daemon: apache2
+www_daemon: {{apache_daemon}}
 apache_sites_available_path: "{{ apache_server_root }}sites-available"
 apache_sites_enabled_path: "{{ apache_server_root }}/sites-enabled"
 apache_apache_packages:
