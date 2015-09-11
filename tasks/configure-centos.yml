@@ -38,6 +38,7 @@
   file:
     path: "{{ apache_default_vhost_filename }}"
     state: directory
+  changed_when: false
   with_items:
     - "{{apache_sites_available_path}}"
     - "{{apache_sites_enabled_path}}"
@@ -64,6 +65,7 @@
     mode: 0644
   notify: restart apache
   when: apache_create_vhosts
+  changed_when: false
   tags:
     - apache
 
