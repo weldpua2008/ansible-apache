@@ -6,8 +6,7 @@ apache_listen_ports:
 apache_vhosts: []
 apache_vhosts_ssl: []
 
-apache_mods_enabled:
-- rewrite.load
+apache_mods_enabled: []
 apache_mods_disabled: []
 apache_create_vhosts: true
 apache_remove_default_vhost: true

@@ -37,6 +37,8 @@
 
 - name: Include apache specific vars
   include_vars: apache-{{ apache_version_slim }}.yml
+  tags:
+    - apache
 
 #
 #- include_vars: apache-22.yml
