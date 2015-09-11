@@ -9,5 +9,5 @@ apache_apache_packages:
     - httpd-devel
     - mod_ssl
 
-apache_mods_enabled:
-  - rewrite.load
+apache_mods_enabled: []
+#  - rewrite.load
