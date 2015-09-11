@@ -24,6 +24,7 @@
     state: absent
   notify: restart apache
   when: apache_remove_default_vhost
+  changed_when: false
   tags:
     - apache
 

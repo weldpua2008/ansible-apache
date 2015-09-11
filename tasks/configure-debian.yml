@@ -24,6 +24,7 @@
     state: absent
   notify: restart apache
   when: apache_remove_default_vhost
+  changed_when: false
   tags:
     - apache
 
@@ -37,10 +38,11 @@
   template:
     src: "vhosts-{{ apache_version_slim }}.conf.j2"
     dest: "{{ apache_default_vhost_filename }}"
-    owner: root
-    group: root
+#    owner: root
+#    group: root
     mode: 0644
   notify: restart apache
   when: apache_create_vhosts
+  changed_when: false
   tags:
     - apache
