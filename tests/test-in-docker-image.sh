@@ -52,6 +52,8 @@ function extra_tests(){
     ${APACHE_CTL} configtest || (echo "php --version was failed" && exit 100 )
 }
 
+
+set -e
 function main(){
     test_playbook_syntax
     test_playbook
@@ -61,5 +63,3 @@ function main(){
 
 ################ run #########################
 main
-exit 0
-
