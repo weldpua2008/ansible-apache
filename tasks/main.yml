@@ -59,15 +59,15 @@
   tags:
     - apache
 
-
-
 - name: Remove default vhost in sites-enabled.
   file:
-    path: "{{ apache_default_vhost_filename }}"
+    path: "{{item}}"
     state: absent
   notify: restart apache
-  when: apache_remove_default_vhost
+  when: apache_remove_default_vhost|bool
   changed_when: false
+  with_fileglob:
+    - "{{ apache_default_vhost_filename }}*"
   tags:
     - apache
 
