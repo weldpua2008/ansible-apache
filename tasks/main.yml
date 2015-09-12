@@ -45,7 +45,7 @@
     path: "{{ apache_server_root }}/mods-enabled/{{ item }}"
     state: absent
   with_items: apache_mods_disabled
-#  notify: restart apache
+  notify: restart apache
   tags:
     - apache
 
@@ -55,7 +55,7 @@
     dest={{ apache_server_root }}/mods-enabled/{{ item }}
     state=link
   with_items: apache_mods_enabled
-#  notify: restart apache
+  notify: restart apache
   tags:
     - apache
 
@@ -73,7 +73,7 @@
 
 - name: copy apache default conf
   template: src=ports.conf.j2 dest={{ apache_server_root }}/ports.conf
-#  notify: restart apache
+  notify: restart apache
   tags:
     - apache
 
@@ -119,6 +119,7 @@
     regexp="^Include sites-enabled"
     line="Include sites-enabled/*"
     state=present
+  notify: restart apache
   tags:
     - apache
 
