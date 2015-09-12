@@ -80,7 +80,7 @@
 
 - name:  Create directories for sites available/enabled.
   file:
-    path: "{{ apache_default_vhost_filename }}"
+    path: "{{ items }}"
     state: directory
   changed_when: false
   with_items:
