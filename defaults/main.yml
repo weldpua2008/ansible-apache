@@ -6,7 +6,7 @@ apache_listen_ports:
 apache_vhosts:
   - server_name: localhost
     server_admin: root@localhost
-    document_root: {{ documentroot }}/localhost
+    document_root: "{{ documentroot }}/localhost"
 apache_vhosts_ssl: []
 
 apache_mods_enabled: []
