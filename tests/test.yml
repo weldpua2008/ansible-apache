@@ -1,6 +1,20 @@
-# test file for pycharm
+# test file for ansible-apache
 ---
 - hosts: localhost
   remote_user: root
+
+  tasks:
+  - name: ensure wget is installed (CentOs)
+    yum:
+      pkg: wget
+      state: installed
+     when: "ansible_os_family == 'RedHat'"
+
+  - name: ensure wget is installed (Debian)
+    apt:
+      pkg: wget
+      state: installed
+     when: "ansible_os_family == 'Debian'"
+
   roles:
     - ansible-apache
