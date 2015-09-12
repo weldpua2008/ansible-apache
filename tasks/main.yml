@@ -90,7 +90,7 @@
   tags:
     - apache
 
-- name:  Create documentroot os sites
+- name:  Create documentroot of sites
   file:
     path: "{{  item.documentroot }}"
     state: directory

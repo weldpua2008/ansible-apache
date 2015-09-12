@@ -5,14 +5,14 @@ DirectoryIndex index.php index.html index.htm index.py index.rb
 {% for apache_listen_port in apache_listen_ports %}
 {% for vhost in apache_vhosts %}
 <VirtualHost *:{{ apache_listen_port }}>
-  ServerName {{ vhost.servername }}
+  ServerName {{ vhost.server_name }}
 {% if vhost.serveralias is defined %}
   ServerAlias {{ vhost.serveralias }}
 {% endif %}
   DocumentRoot {{ vhost.documentroot }}
 
-{% if vhost.serveradmin is defined %}
-  ServerAdmin {{ vhost.serveradmin }}
+{% if vhost.server_admin is defined %}
+  ServerAdmin {{ vhost.server_admin }}
 {% endif %}
   <Directory "{{ vhost.documentroot }}">
     AllowOverride All
@@ -30,7 +30,7 @@ DirectoryIndex index.php index.html index.htm index.py index.rb
 {# Set up SSL VirtualHosts. #}
 {% for vhost in apache_vhosts_ssl %}
 <VirtualHost *:{{ apache_listen_port_ssl }}>
-  ServerName {{ vhost.servername }}
+  ServerName {{ vhost.server_name }}
 {% if vhost.serveralias is defined %}
   ServerAlias {{ vhost.serveralias }}
 {% endif %}
@@ -46,8 +46,8 @@ DirectoryIndex index.php index.html index.htm index.py index.rb
   SSLCertificateChainFile {{ vhost.certificate_chain_file }}
 {% endif %}
 
-{% if vhost.serveradmin is defined %}
-  ServerAdmin {{ vhost.serveradmin }}
+{% if vhost.server_admin is defined %}
+  ServerAdmin {{ vhost.server_admin }}
 {% endif %}
   <Directory "{{ vhost.documentroot }}">
     AllowOverride All
