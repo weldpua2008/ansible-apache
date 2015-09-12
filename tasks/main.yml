@@ -100,6 +100,20 @@
   tags:
     - apache
 
+- name:  Create index.html
+  template:
+    src: "index.html.j2"
+    dest: "{{  item.document_root }}/index.html"
+    mode: 0444
+  changed_when: false
+  when: item.document_root is defined
+  with_items: apache_vhosts
+  tags:
+    - apache
+
+
+
+
 - name: Add apache vhosts configuration.
   template:
     src: "vhosts-{{ apache_version_slim }}.conf.j2"
