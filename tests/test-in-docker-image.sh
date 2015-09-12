@@ -24,6 +24,11 @@ if [ "${OS_TYPE}" == "centos" ];then
     if [ "${OS_VERSION}" == "7" ];then
         ANSIBLE_VAR="apache_use_service=False"
     fi
+elif [ "${OS_TYPE}" == "centos" ];then
+    if [ "${OS_VERSION}" == "14.04" ];then
+        ANSIBLE_VAR="apache_use_service=False"
+    fi
+
 fi
 
 ANSIBLE_EXTRA_VARS=""
