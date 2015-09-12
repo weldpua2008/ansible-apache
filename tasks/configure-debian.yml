@@ -1,4 +1,12 @@
 ---
+
+- name: Debug
+  debug:
+    msg="{{apache_use_service}}"
+  tags:
+    - apache
+
+
 - name: Disable Apache mods.
   file:
     path: "{{ apache_server_root }}/mods-enabled/{{ item }}"
