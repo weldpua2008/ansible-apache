@@ -8,12 +8,12 @@ DirectoryIndex index.php index.html
 {% if vhost.serveralias is defined %}
   ServerAlias {{ vhost.serveralias }}
 {% endif %}
-  DocumentRoot {{ vhost.documentroot }}
+  DocumentRoot {{ vhost.document_root }}
 
 {% if vhost.server_admin is defined %}
   ServerAdmin {{ vhost.server_admin }}
 {% endif %}
-  <Directory "{{ vhost.documentroot }}">
+  <Directory "{{ vhost.document_root }}">
     AllowOverride All
     Options -Indexes +FollowSymLinks
     Require all granted
@@ -35,12 +35,12 @@ DirectoryIndex index.php index.html
 {% if vhost.serveralias is defined %}
   ServerAlias {{ vhost.serveralias }}
 {% endif %}
-  DocumentRoot {{ vhost.documentroot }}
+  DocumentRoot {{ vhost.document_root }}
 
 {% if vhost.server_admin is defined %}
   ServerAdmin {{ vhost.server_admin }}
 {% endif %}
-  <Directory "{{ vhost.documentroot }}">
+  <Directory "{{ vhost.document_root }}">
     AllowOverride All
     Options -Indexes +FollowSymLinks
     Require all granted
@@ -59,7 +59,7 @@ DirectoryIndex index.php index.html
 {% if vhost.serveralias is defined %}
   ServerAlias {{ vhost.serveralias }}
 {% endif %}
-  DocumentRoot {{ vhost.documentroot }}
+  DocumentRoot {{ vhost.document_root }}
 
   SSLEngine on
   SSLCipherSuite {{ apache_ssl_cipher_suite }}
@@ -75,7 +75,7 @@ DirectoryIndex index.php index.html
 {% if vhost.server_admin is defined %}
   ServerAdmin {{ vhost.server_admin }}
 {% endif %}
-  <Directory "{{ vhost.documentroot }}">
+  <Directory "{{ vhost.document_root }}">
     AllowOverride All
     Options -Indexes +FollowSymLinks
     Require all granted
@@ -91,7 +91,7 @@ DirectoryIndex index.php index.html
 {% if vhost.serveralias is defined %}
   ServerAlias {{ vhost.serveralias }}
 {% endif %}
-  DocumentRoot {{ vhost.documentroot }}
+  DocumentRoot {{ vhost.document_root }}
 
   SSLEngine on
   SSLCipherSuite {{ apache_ssl_cipher_suite }}
@@ -107,7 +107,7 @@ DirectoryIndex index.php index.html
 {% if vhost.server_admin is defined %}
   ServerAdmin {{ vhost.server_admin }}
 {% endif %}
-  <Directory "{{ vhost.documentroot }}">
+  <Directory "{{ vhost.document_root }}">
     AllowOverride All
     Options -Indexes +FollowSymLinks
     Require all granted

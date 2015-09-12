@@ -92,10 +92,10 @@
 
 - name:  Create documentroot of sites
   file:
-    path: "{{  item.documentroot }}"
+    path: "{{  item.document_root }}"
     state: directory
   changed_when: false
-  when: item.documentroot is defined
+  when: item.document_root is defined
   with_items: apache_vhosts
   tags:
     - apache
