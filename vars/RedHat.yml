@@ -4,6 +4,7 @@ apache_daemon: httpd
 www_daemon: "{{apache_daemon}}"
 apache_sites_available_path: "{{ apache_server_root }}/sites-available"
 apache_sites_enabled_path: "{{ apache_server_root }}/sites-enabled"
+apache_sites_ssl_enabled_path: "{{ apache_server_root }}/conf.d/"
 apache_apache_packages:
     - httpd
     - httpd-devel

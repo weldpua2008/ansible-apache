@@ -2,120 +2,65 @@ DirectoryIndex index.php index.html
 
 {# Set up VirtualHosts #}
 {% for apache_listen_port in apache_listen_ports %}
-{% for vhost in apache_vhosts %}
-<VirtualHost *:{{ apache_listen_port }}>
-  ServerName {{ vhost.server_name }}
-{% if vhost.serveralias is defined %}
-  ServerAlias {{ vhost.serveralias }}
-{% endif %}
-  DocumentRoot {{ vhost.document_root }}
+    {% for vhost in apache_vhosts %}
+    <VirtualHost *:{{ apache_listen_port }}>
+      ServerName {{ vhost.server_name }}
+    {% if vhost.serveralias is defined %}
+      ServerAlias {{ vhost.serveralias }}
+    {% endif %}
+      DocumentRoot {{ vhost.document_root }}
 
-{% if vhost.server_admin is defined %}
-  ServerAdmin {{ vhost.server_admin }}
-{% endif %}
-  <Directory "{{ vhost.document_root }}">
-    AllowOverride All
-    Options -Indexes +FollowSymLinks
-    Require all granted
-  </Directory>
-{% if vhost.extra_parameters is defined %}
-  {{ vhost.extra_parameters }}
-{% endif %}
-</VirtualHost>
+    {% if vhost.server_admin is defined %}
+      ServerAdmin {{ vhost.server_admin }}
+    {% endif %}
+      <Directory "{{ vhost.document_root }}">
+        AllowOverride All
+        Options -Indexes +FollowSymLinks
+        Require all granted
+      </Directory>
+    {% if vhost.extra_parameters is defined %}
+      {{ vhost.extra_parameters }}
+    {% endif %}
+    </VirtualHost>
 
+    {% endfor %}
 {% endfor %}
 
-{# Set up SSL VirtualHosts #}
-{% for vhost in apache_vhosts_ssl %}DirectoryIndex index.php index.html
-
-{# Set up VirtualHosts #}
-{% for vhost in apache_vhosts %}
-<VirtualHost *:{{ apache_listen_port }}>
-  ServerName {{ vhost.server_name }}
-{% if vhost.serveralias is defined %}
-  ServerAlias {{ vhost.serveralias }}
-{% endif %}
-  DocumentRoot {{ vhost.document_root }}
-
-{% if vhost.server_admin is defined %}
-  ServerAdmin {{ vhost.server_admin }}
-{% endif %}
-  <Directory "{{ vhost.document_root }}">
-    AllowOverride All
-    Options -Indexes +FollowSymLinks
-    Require all granted
-  </Directory>
-{% if vhost.extra_parameters is defined %}
-  {{ vhost.extra_parameters }}
-{% endif %}
-</VirtualHost>
-
-{% endfor %}
 
 {# Set up SSL VirtualHosts #}
 {% for vhost in apache_vhosts_ssl %}
-<VirtualHost *:{{ apache_listen_port_ssl }}>
-  ServerName {{ vhost.servername }}
-{% if vhost.serveralias is defined %}
-  ServerAlias {{ vhost.serveralias }}
-{% endif %}
-  DocumentRoot {{ vhost.document_root }}
+    {% for apache_listen_port_ssl in apache_ssl_listen_ports %}
+    <VirtualHost *:{{ apache_listen_port_ssl }}>
+      ServerName {{ vhost.server_name }}
+      {% if vhost.serveralias is defined %}
+          ServerAlias {{ vhost.serveralias }}
+      {% endif %}
+      DocumentRoot {{ vhost.document_root }}
 
-  SSLEngine on
-  SSLCipherSuite {{ apache_ssl_cipher_suite }}
-  SSLProtocol {{ apache_ssl_protocol }}
-  SSLHonorCipherOrder On
-  SSLCompression off
-  SSLCertificateFile {{ vhost.certificate_file }}
-  SSLCertificateKeyFile {{ vhost.certificate_key_file }}
-{% if vhost.certificate_chain_file is defined %}
-  SSLCertificateChainFile {{ vhost.certificate_chain_file }}
-{% endif %}
+      SSLEngine on
+      SSLCipherSuite {{ apache_ssl_cipher_suite }}
+      SSLProtocol {{ apache_ssl_protocol }}
+      SSLHonorCipherOrder On
+      SSLCompression off
+      SSLCertificateFile {{ vhost.certificate_file }}
+      SSLCertificateKeyFile {{ vhost.certificate_key_file }}
+        {% if vhost.certificate_chain_file is defined %}
+          SSLCertificateChainFile {{ vhost.certificate_chain_file }}
+        {% endif %}
 
-{% if vhost.server_admin is defined %}
-  ServerAdmin {{ vhost.server_admin }}
-{% endif %}
-  <Directory "{{ vhost.document_root }}">
-    AllowOverride All
-    Options -Indexes +FollowSymLinks
-    Require all granted
-  </Directory>
-{% if vhost.extra_parameters is defined %}
-  {{ vhost.extra_parameters }}
-{% endif %}
-</VirtualHost>
-
-{% endfor %}
-<VirtualHost *:{{ apache_listen_port_ssl }}>
-  ServerName {{ vhost.servername }}
-{% if vhost.serveralias is defined %}
-  ServerAlias {{ vhost.serveralias }}
-{% endif %}
-  DocumentRoot {{ vhost.document_root }}
-
-  SSLEngine on
-  SSLCipherSuite {{ apache_ssl_cipher_suite }}
-  SSLProtocol {{ apache_ssl_protocol }}
-  SSLHonorCipherOrder On
-  SSLCompression off
-  SSLCertificateFile {{ vhost.certificate_file }}
-  SSLCertificateKeyFile {{ vhost.certificate_key_file }}
-{% if vhost.certificate_chain_file is defined %}
-  SSLCertificateChainFile {{ vhost.certificate_chain_file }}
-{% endif %}
-
-{% if vhost.server_admin is defined %}
-  ServerAdmin {{ vhost.server_admin }}
-{% endif %}
-  <Directory "{{ vhost.document_root }}">
-    AllowOverride All
-    Options -Indexes +FollowSymLinks
-    Require all granted
-  </Directory>
-{% if vhost.extra_parameters is defined %}
-  {{ vhost.extra_parameters }}
-{% endif %}
-</VirtualHost>
+        {% if vhost.server_admin is defined %}
+          ServerAdmin {{ vhost.server_admin }}
+        {% endif %}
+      <Directory "{{ vhost.document_root }}">
+        AllowOverride All
+        Options -Indexes +FollowSymLinks
+        Require all granted
+      </Directory>
+        {% if vhost.extra_parameters is defined %}
+          {{ vhost.extra_parameters }}
+        {% endif %}
+    </VirtualHost>
+    {% endfor %}
 
 {% endfor %}
-{% endfor %}
+
