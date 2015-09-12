@@ -115,7 +115,7 @@
 
 - name: Configure Apache to  include sites-enabled.
   lineinfile:
-    dest={{ apache_server_root  }}/conf/{{ apache_daemon }}.conf
+    dest={{apache_conf_path}}
     regexp="^Include sites-enabled"
     line="Include sites-enabled/*"
     state=present

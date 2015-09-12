@@ -11,3 +11,4 @@ apache_apache_packages:
   - apache2.2-bin
 
 documentroot: /var/www
+apache_conf_path: "{{ apache_server_root  }}/{{ apache_daemon }}.conf"
