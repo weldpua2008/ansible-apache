@@ -12,7 +12,7 @@
     path: "{{ apache_server_root }}/mods-enabled/{{ item }}"
     state: absent
   with_items: apache_mods_disabled
-  notify: reload apache
+#  notify: restart apache
   tags:
     - apache
 
@@ -22,7 +22,7 @@
     dest={{ apache_server_root }}/mods-enabled/{{ item }}
     state=link
   with_items: apache_mods_enabled
-  notify: reload apache
+#  notify: restart apache
   tags:
     - apache
 
@@ -30,7 +30,7 @@
   file:
     path: "{{ apache_default_vhost_filename }}"
     state: absent
-  notify: restart apache
+#  notify: restart apache
   when: apache_remove_default_vhost
   changed_when: false
   tags:
@@ -38,7 +38,7 @@
 
 - name: copy apache default conf
   template: src=ports.conf.j2 dest={{ apache_server_root }}/ports.conf
-  notify: reload apache
+#  notify: restart apache
   tags:
     - apache
 
