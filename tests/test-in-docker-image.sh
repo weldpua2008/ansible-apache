@@ -27,9 +27,11 @@ if [ "${OS_TYPE}" == "centos" ];then
         ANSIBLE_VAR="apache_use_service=False"
     fi
 elif [ "${OS_TYPE}" == "ubuntu" ];then
-    if [ "${OS_VERSION}" == "14.04" ];then
-        ANSIBLE_VAR="apache_use_service=False"
-    fi
+    APACHE_CTL="apache2ctl"
+
+#    if [ "${OS_VERSION}" == "14.04" ];then
+#        ANSIBLE_VAR="apache_use_service=False"
+#    fi
 
 fi
 
