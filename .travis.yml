@@ -4,7 +4,9 @@ sudo: required
 env:
   #matrix:
   - OS_TYPE=centos OS_VERSION=6 ANSIBLE_VERSION=1.9.2
-  - OS_TYPE=centos OS_VERSION=7 ANSIBLE_VERSION=1.9.2
+  # dicabled due error: unpacking of archive failed on file /usr/sbin/suexec: cpio: cap_set_file
+  # See also: https://github.com/docker/docker/issues/6980
+  #- OS_TYPE=centos OS_VERSION=7 ANSIBLE_VERSION=1.9.2
   - OS_TYPE=ubuntu OS_VERSION=12.04 ANSIBLE_VERSION=1.9.2
   - OS_TYPE=ubuntu OS_VERSION=14.04 ANSIBLE_VERSION=1.9.2
 #  - OS_TYPE=fedora OS_VERSION=22
