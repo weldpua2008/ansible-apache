@@ -11,3 +11,4 @@ apache_apache_packages:
 
 apache_mods_enabled: []
 #  - rewrite.load
+documentroot: /usr/local/www

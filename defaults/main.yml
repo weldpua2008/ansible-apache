@@ -3,7 +3,10 @@
 apache_listen_ports:
   - 80
   - 443
-apache_vhosts: []
+apache_vhosts:
+  - server_name: localhost
+    server_admin: root@localhost
+    document_root: {{ documentroot }}/localhost
 apache_vhosts_ssl: []
 
 apache_mods_enabled: []
@@ -12,3 +15,4 @@ apache_create_vhosts: true
 apache_remove_default_vhost: true
 apache_use_service: true
 apache_enable_php: true
+#ServerName: localhost

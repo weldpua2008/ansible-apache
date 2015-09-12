@@ -9,3 +9,5 @@ apache_apache_packages:
   - apache2-mpm-prefork
   - apache2-utils
   - apache2.2-bin
+
+documentroot: /var/www

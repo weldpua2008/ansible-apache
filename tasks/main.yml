@@ -40,6 +40,88 @@
   tags:
     - apache
 
+- name: Disable Apache mods.
+  file:
+    path: "{{ apache_server_root }}/mods-enabled/{{ item }}"
+    state: absent
+  with_items: apache_mods_disabled
+#  notify: restart apache
+  tags:
+    - apache
+
+- name: Enable Apache modules
+  file:
+    src={{ apache_server_root }}/mods-available/{{ item }}
+    dest={{ apache_server_root }}/mods-enabled/{{ item }}
+    state=link
+  with_items: apache_mods_enabled
+#  notify: restart apache
+  tags:
+    - apache
+
+
+
+- name: Remove default vhost in sites-enabled.
+  file:
+    path: "{{ apache_default_vhost_filename }}"
+    state: absent
+  notify: restart apache
+  when: apache_remove_default_vhost
+  changed_when: false
+  tags:
+    - apache
+
+- name: copy apache default conf
+  template: src=ports.conf.j2 dest={{ apache_server_root }}/ports.conf
+#  notify: restart apache
+  tags:
+    - apache
+
+
+- name:  Create directories for sites available/enabled.
+  file:
+    path: "{{ apache_default_vhost_filename }}"
+    state: directory
+  changed_when: false
+  with_items:
+    - "{{apache_sites_available_path}}"
+    - "{{apache_sites_enabled_path}}"
+
+  tags:
+    - apache
+
+- name:  Create documentroot os sites
+  file:
+    path: "{{  item.documentroot }}"
+    state: directory
+  changed_when: false
+  when: item.documentroot is defined
+  with_items: apache_vhosts
+  tags:
+    - apache
+
+- name: Add apache vhosts configuration.
+  template:
+    src: "vhosts-{{ apache_version_slim }}.conf.j2"
+    dest: "{{ apache_default_vhost_filename }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart apache
+  when: apache_create_vhosts
+  changed_when: false
+  tags:
+    - apache
+
+- name: Configure Apache to  include sites-enabled.
+  lineinfile:
+    dest={{ apache_server_root  }}/conf/{{ apache_daemon }}.conf
+    regexp="^Include sites-enabled"
+    line="Include sites-enabled/*"
+    state=present
+  tags:
+    - apache
+
 #
 #- include_vars: apache-22.yml
 #  when: "apache_version.split('.')[1] == '2'"
@@ -56,3 +138,4 @@
   when: "ansible_os_family == 'RedHat'"
   tags:
     - apache
+
