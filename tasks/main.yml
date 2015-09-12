@@ -137,7 +137,7 @@
     line="ServerName localhost"
     state=present
   notify: restart apache
-  when: apache_version_slim == '2.4'
+  #when: apache_version_slim == '2.4'
   tags:
     - apache
 
