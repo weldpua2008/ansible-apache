@@ -24,7 +24,7 @@ if [ "${OS_TYPE}" == "centos" ];then
     if [ "${OS_VERSION}" == "7" ];then
         ANSIBLE_VAR="apache_use_service=False"
     fi
-elif [ "${OS_TYPE}" == "centos" ];then
+elif [ "${OS_TYPE}" == "ubuntu" ];then
     if [ "${OS_VERSION}" == "14.04" ];then
         ANSIBLE_VAR="apache_use_service=False"
     fi

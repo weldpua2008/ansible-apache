@@ -80,7 +80,7 @@
 
 - name:  Create directories for sites available/enabled.
   file:
-    path: "{{ items }}"
+    path: "{{ item }}"
     state: directory
   changed_when: false
   with_items:
