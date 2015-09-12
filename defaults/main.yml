@@ -10,5 +10,5 @@ apache_mods_enabled: []
 apache_mods_disabled: []
 apache_create_vhosts: true
 apache_remove_default_vhost: true
-
+apache_use_service: true
 apache_enable_php: true
