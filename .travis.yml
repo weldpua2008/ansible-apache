@@ -29,6 +29,7 @@ before_install:
   - sudo echo 'DOCKER_OPTS="-s devicemapper"' | sudo tee /etc/default/docker > /dev/null
   - sudo cat /etc/default/docker
   - sudo service docker start
+   - sudo ps -A|grep docker
   #- sudo service docker restart
   - sudo docker pull weldpua2008/docker-ansible:${OS_TYPE}${OS_VERSION}_v${ANSIBLE_VERSION}
 
