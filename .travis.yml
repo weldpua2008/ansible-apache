@@ -24,7 +24,7 @@ before_install:
   #- echo 'DOCKER_OPTS="-s devicemapper"' >> /etc/default/docker; service docker resstart
   - sudo ps -A|grep docker
   - sudo service docker stop
-  - sudo ps -A|grep docker
+  - sudo ps -A
   #- sudo echo 'DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock -s devicemapper"' | sudo tee /etc/default/docker > /dev/null
   - sudo echo 'DOCKER_OPTS="-s devicemapper"' | sudo tee /etc/default/docker > /dev/null
   - sudo cat /etc/default/docker
