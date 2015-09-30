@@ -1,4 +1,8 @@
 [![Build Status](https://travis-ci.org/weldpua2008/ansible-apache.svg?branch=master)](https://travis-ci.org/weldpua2008/ansible-apache)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/weldpua2008/ansible-apache/master/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/weldpua2008/ansible-apache.svg)](https://github.com/weldpua2008/ansible-apache/issues)
+[![GitHub forks](https://img.shields.io/github/forks/weldpua2008/ansible-apache.svg)](https://github.com/weldpua2008/ansible-apache/network)
+[![GitHub stars](https://img.shields.io/github/stars/weldpua2008/ansible-apache.svg)](https://github.com/weldpua2008/ansible-apache/stargazers)
 Role Name
 ========
 

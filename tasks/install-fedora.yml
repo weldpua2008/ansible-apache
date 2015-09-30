@@ -1,0 +1,26 @@
+---
+- name: install apache packages
+  yum: pkg={{ item }} state=installed
+  with_items: apache_apache_packages
+  when: ansible_distribution_major_version|int < 22
+  tags:
+    - apache
+
+
+- name: install apache packages
+  shell: dnf install {{ item }} -y
+  with_items: apache_apache_packages
+  when: ansible_distribution_major_version|int >= 22
+  tags:
+    - apache
+
+#####################################################################
+# disabled due                                                      #
+# ERROR: dnf is not a legal parameter in an Ansible task or handler #
+#####################################################################
+#- name: install apache packages
+#  dnf: name={{ item }} state=installed
+#  with_items: apache_apache_packages
+#  when: ansible_distribution_major_version|int >= 22
+#  tags:
+#    - apache
