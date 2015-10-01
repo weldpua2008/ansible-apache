@@ -147,6 +147,16 @@
   tags:
     - apache
 
+- debug: msg="{{apache_use_service}} {{apache_use_service|bool}} "
+  tags:
+    - apache
+
+- debug: msg="{{apache_use_service}} {{apache_use_service|bool}} "
+  when: apache_use_service|bool
+  tags:
+    - apache
+
+
 
 - name: Configure Apache to  include sites-enabled.
   lineinfile:
