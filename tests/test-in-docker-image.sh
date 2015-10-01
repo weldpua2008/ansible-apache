@@ -90,11 +90,16 @@ function extra_tests(){
     ${APACHE_CTL} configtest || (echo "${APACHE_CTL} configtest was failed" && exit 100 )
     set +e
     ${APACHE_CTL} stop
+    ${APACHE_CTL} stop
+    service apache2 stop
     killall apache
     killall httpd
     killall apache2
+    wget http://localhost > /dev/null && (echo "Apache server shouldn't working" && exit 100 )
+
 
     ${APACHE_CTL} start
+    sudo ${APACHE_CTL} start
 
     wget http://localhost > /dev/null || (echo "Apache server doesn't work property" && exit 100 )
 
