@@ -8,7 +8,21 @@
     yum:
       pkg: wget
       state: installed
-    when: "ansible_os_family == 'RedHat'"
+    when: "ansible_os_family == 'RedHat' and ansible_distribution != 'Fedora'"
+
+
+  tasks:
+  - name: ensure wget is installed (Fedora < 22)
+    yum:
+      pkg: wget
+      state: installed
+    when: "ansible_distribution == 'Fedora' and ansible_distribution_major_version|int < 22"
+
+
+- name: ensure wget is installed (Fedora >= 22)
+  shell: dnf install wget -y
+  when: "ansible_distribution == 'Fedora' and ansible_distribution_major_version|int >= 22"
+
 
   - name: ensure wget is installed (Debian)
     apt:
