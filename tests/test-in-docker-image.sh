@@ -21,6 +21,7 @@ DISABLED_SYSTEMD="no"
 ANSIBLE_VAR=""
 ANSIBLE_INVENTORY="tests/test-inventory"
 ANSIBLE_PLAYBOOk="tests/test.yml"
+ANSIBLE_PREPARATION_PLAYBOOk="tests/prepare.yml"
 #ANSIBLE_LOG_LEVEL="-vvv"
 ANSIBLE_LOG_LEVEL=""
 
@@ -89,6 +90,7 @@ function extra_tests(){
     echo  ">>>started: extra_tests"
     ${APACHE_CTL} configtest || (echo "${APACHE_CTL} configtest was failed" && exit 100 )
     set +e
+    ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_PREPARATION_PLAYBOOk} ${ANSIBLE_LOG_LEVEL} --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS}
     ${APACHE_CTL} stop
     ${APACHE_CTL} stop
     service apache2 stop
