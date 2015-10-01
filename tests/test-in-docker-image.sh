@@ -47,7 +47,7 @@ elif [ "${OS_TYPE}" == "fedora" ];then
 fi
 
 echo "=============================================="
-echo "     $DISABLED_SYSTEMD:"
+echo "     DISABLED_SYSTEMD:"
 echo "                      $DISABLED_SYSTEMD"
 echo "=============================================="
 

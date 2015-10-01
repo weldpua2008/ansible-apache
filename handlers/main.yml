@@ -5,9 +5,14 @@
     name: "{{ apache_daemon }}"
     state: restarted
   when: apache_use_service|bool
+  tags:
+    - apache
+
 
 - name: reload apache
   service:
     name: "{{ apache_daemon }}"
     state: reloaded
   when: apache_use_service|bool
+  tags:
+    - apache
