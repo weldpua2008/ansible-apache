@@ -75,8 +75,14 @@ function test_playbook(){
 function extra_tests(){
 
     ${APACHE_CTL} configtest || (echo "${APACHE_CTL} configtest was failed" && exit 100 )
+    set +e
     ${APACHE_CTL} stop
+    killall apache
+    killall httpd
+    killall apache2
+
     ${APACHE_CTL} start
+
     wget http://localhost > /dev/null || (echo "Apache server doesn't work property" && exit 100 )
 
 }
