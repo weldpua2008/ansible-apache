@@ -89,16 +89,24 @@ function test_playbook(){
     ansible-playbook -i ${ANSIBLE_INVENTORY} --connection=local $SUDO_OPTION $ANSIBLE_EXTRA_VARS $ANSIBLE_LOG_LEVEL ${ANSIBLE_PLAYBOOk} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' ) || (echo 'Idempotence test: fail' && exit 1)
 }
 function extra_tests(){
+    echo "=========================="
     echo  ">>>started: extra_tests"
+    echo "  >>>>${APACHE_CTL} configtest"
+    echo "=========================="
     ${APACHE_CTL} configtest || (echo "${APACHE_CTL} configtest was failed" && exit 100 )
     set +e
+    echo "=========================="
+    echo "          preparation"
+    echo "=========================="
+
     ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_PREPARATION_PLAYBOOk} ${ANSIBLE_LOG_LEVEL} --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS}
     ${APACHE_CTL} stop
     ${APACHE_CTL} stop
     service apache2 stop
-    killall apache
-    killall httpd
-    killall apache2
+    killall apache || pkill apache
+    killall httpd || pkill httpd
+    killall apache2 || pkill apache2
+
     wget http://localhost > /dev/null && (echo "Apache server shouldn't working" && exit 100 )
 
 

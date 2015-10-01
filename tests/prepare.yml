@@ -6,23 +6,33 @@
   tasks:
     - name: ensure wget is installed (CentOs)
       yum:
-          pkg: wget
+          pkg: "{{item}}"
           state: installed
       when: "ansible_os_family == 'RedHat' and ansible_distribution != 'Fedora'"
+      with_items:
+        - wget
+        - psmisc
 
     - name: ensure wget is installed (Fedora < 22)
       yum:
-          pkg: wget
+          pkg: "{{item}}"
           state: installed
       when: "ansible_distribution == 'Fedora' and ansible_distribution_major_version|int < 22"
-
+      with_items:
+        - wget
+        - psmisc
 
     - name: ensure wget is installed (Fedora >= 22)
-      shell: dnf install wget -y
+      shell: dnf install {{item}} -y
       when: "ansible_distribution == 'Fedora' and ansible_distribution_major_version|int >= 22"
-
+      with_items:
+        - wget
+        - psmisc
     - name: ensure wget is installed (Debian)
       apt:
-        pkg: wget
+        pkg: "{{item}}"
         state: installed
       when: "ansible_os_family == 'Debian'"
+      with_items:
+        - wget
+        - psmisc
