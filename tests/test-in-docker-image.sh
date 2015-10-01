@@ -7,6 +7,9 @@ SUDO_OPTION="--sudo"
 OS_TYPE=${1:-}
 OS_VERSION=${2:-}
 ANSIBLE_VERSION=${3:-}
+echo "============= RUN TESTS FOR: =============================="
+echo "              ${OS_TYPE} ${OS_VERSION} ${ANSIBLE_VERSION}"
+echo "==========================================================="
 
 ################
 # there is error with docker + SystemD:
