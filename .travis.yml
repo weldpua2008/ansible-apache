@@ -1,5 +1,5 @@
-language: python
-python: '2.7'
+#language: python
+#python: '2.7'
 sudo: required
 env:
   #matrix:
@@ -23,16 +23,19 @@ services:
 before_install:
 #  #- echo 'DOCKER_OPTS="-s devicemapper"' >> /etc/default/docker; service docker resstart
 #  - sudo ps -A|grep docker
-  - sudo service docker stop
+#  - sudo service docker stop
 #  - sudo ps -A
-  - sudo echo 'DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock -s devicemapper"' | sudo tee /etc/default/docker > /dev/null
-  - sudo docker -d &
+#  - sudo echo 'DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock -s devicemapper"' | sudo tee /etc/default/docker > /dev/null
+#  - sudo docker -d &
 #  - sudo echo 'DOCKER_OPTS="-s devicemapper"' | sudo tee /etc/default/docker > /dev/null
 #  - sudo cat /etc/default/docker
 #  - sudo service docker start
 #  - sudo service docker start
 #  - sudo ps -A|grep docker
 #  #- sudo service docker restart
+  - echo 'DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock -s devicemapper"' | sudo tee /etc/default/docker > /dev/null
+  - sudo service docker restart
+  - sudo docker -d &
   - sudo docker pull weldpua2008/docker-ansible:${OS_TYPE}${OS_VERSION}_v${ANSIBLE_VERSION}
 
 script:
