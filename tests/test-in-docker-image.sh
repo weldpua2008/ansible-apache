@@ -52,7 +52,7 @@ echo "                      $DISABLED_SYSTEMD"
 echo "=============================================="
 
 if [ "${DISABLED_SYSTEMD}" == "yes" ];then
-     ANSIBLE_VAR="apache_use_service=False"
+     ANSIBLE_VAR="apache_use_service=false"
      echo -n systemd > /proc/1/comm
 fi
 
