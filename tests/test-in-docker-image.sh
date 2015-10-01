@@ -52,14 +52,15 @@ echo "     DISABLED_SYSTEMD:"
 echo "                      $DISABLED_SYSTEMD"
 echo "=============================================="
 
+ANSIBLE_EXTRA_VARS=""
+
 if [ "${DISABLED_SYSTEMD}" == "yes" ];then
      ANSIBLE_VAR="apache_use_service=false"
+     ANSIBLE_EXTRA_VARS=' -e "apache_use_service=false" '
      echo -n systemd > /proc/1/comm
 fi
 
-ANSIBLE_EXTRA_VARS=""
 if [ "${ANSIBLE_VAR}x" != "x" ];then
-    ANSIBLE_EXTRA_VARS=" -e \"${ANSIBLE_VAR}\" "
     echo "======================================================"
     echo "   ANSIBLE_EXTRA_VARS:"
     echo "                      ${ANSIBLE_EXTRA_VARS}"
