@@ -2,7 +2,8 @@
 
 SOURCE="${BASH_SOURCE[0]}"
 RDIR="$( dirname "$SOURCE" )"
-SUDO=`which sudo 2> /dev/null`
+#SUDO=`which sudo 2> /dev/null`
+SUDO=""
 SUDO_OPTION="--sudo"
 OS_TYPE=${1:-}
 OS_VERSION=${2:-}
@@ -82,10 +83,10 @@ function test_playbook(){
     echo  ">>>started: Idempotence test"
 
     # first run
-    ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_PLAYBOOk} ${ANSIBLE_LOG_LEVEL} --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS} || ( echo "first run was failed" && exit 2 )
+    ansible-playbook -i ${ANSIBLE_INVENTORY}  --connection=local $SUDO_OPTION $ANSIBLE_EXTRA_VARS $ANSIBLE_LOG_LEVEL  ${ANSIBLE_PLAYBOOk} || ( echo "first run was failed" && exit 2 )
 
     # Run the role/playbook again, checking to make sure it's idempotent.
-    ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_PLAYBOOk} ${ANSIBLE_LOG_LEVEL} --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' ) || (echo 'Idempotence test: fail' && exit 1)
+    ansible-playbook -i ${ANSIBLE_INVENTORY} --connection=local $SUDO_OPTION $ANSIBLE_EXTRA_VARS $ANSIBLE_LOG_LEVEL ${ANSIBLE_PLAYBOOk} | grep -q 'changed=0.*failed=0' && (echo 'Idempotence test: pass' ) || (echo 'Idempotence test: fail' && exit 1)
 }
 function extra_tests(){
     echo  ">>>started: extra_tests"
