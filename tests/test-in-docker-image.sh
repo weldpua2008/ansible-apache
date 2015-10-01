@@ -8,6 +8,13 @@ OS_TYPE=${1:-}
 OS_VERSION=${2:-}
 ANSIBLE_VERSION=${3:-}
 
+################
+# there is error with docker + SystemD:
+#   https://github.com/ansible/ansible-modules-core/issues/593#issuecomment-144725409
+# So for now I disabled SystemD on specified OS versions
+##############
+DISABLED_SYSTEMD="no"
+
 ANSIBLE_VAR=""
 ANSIBLE_INVENTORY="tests/test-inventory"
 ANSIBLE_PLAYBOOk="tests/test.yml"
@@ -24,19 +31,25 @@ fi
 if [ "${OS_TYPE}" == "centos" ];then
     APACHE_CTL="apachectl"
     if [ "${OS_VERSION}" == "7" ];then
-        ANSIBLE_VAR="apache_use_service=False"
+        DISABLED_SYSTEMD="yes"
     fi
 elif [ "${OS_TYPE}" == "ubuntu" ];then
     APACHE_CTL="apache2ctl"
+    if [ "${OS_VERSION}" == "14.04" ];then
+        DISABLED_SYSTEMD="yes"
+    fi
 
-#    if [ "${OS_VERSION}" == "14.04" ];then
-#        ANSIBLE_VAR="apache_use_service=False"
-#    fi
+elif [ "${OS_TYPE}" == "fedora" ];then
+     DISABLED_SYSTEMD="yes"
+fi
 
+if [ "${DISABLED_SYSTEMD}" == "yes" ];then
+     ANSIBLE_VAR="apache_use_service=False"
+     echo -n systemd > /proc/1/comm
 fi
 
 ANSIBLE_EXTRA_VARS=""
-if [ "${ANSIBLE_VAR}x" == "x" ];then
+if [ "${ANSIBLE_VAR}x" != "x" ];then
     ANSIBLE_EXTRA_VARS=" -e \"${ANSIBLE_VAR}\" "
 fi
 
@@ -59,6 +72,8 @@ function test_playbook(){
 function extra_tests(){
 
     ${APACHE_CTL} configtest || (echo "${APACHE_CTL} configtest was failed" && exit 100 )
+    ${APACHE_CTL} stop
+    ${APACHE_CTL} start
     wget http://localhost > /dev/null || (echo "Apache server doesn't work property" && exit 100 )
 
 }
