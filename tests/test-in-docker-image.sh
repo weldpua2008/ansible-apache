@@ -47,7 +47,8 @@ elif [ "${OS_TYPE}" == "ubuntu" ];then
     fi
 
 elif [ "${OS_TYPE}" == "fedora" ];then
-     DISABLED_SYSTEMD="yes"
+    APACHE_CTL="apachectl"
+    DISABLED_SYSTEMD="yes"
 fi
 
 echo "=============================================="
