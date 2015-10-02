@@ -101,18 +101,23 @@ function extra_tests(){
 
     ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_PREPARATION_PLAYBOOk} ${ANSIBLE_LOG_LEVEL} --connection=local ${SUDO_OPTION} ${ANSIBLE_EXTRA_VARS}
     ${APACHE_CTL} stop
-    ${APACHE_CTL} stop
+    sudo ${APACHE_CTL} stop
     service apache2 stop
+    sudo service apache2 stop
     killall apache || pkill apache
     killall httpd || pkill httpd
     killall apache2 || pkill apache2
 
-    wget http://localhost > /dev/null && (echo "Apache server shouldn't working" && exit 100 )
+    sudo killall apache || sudo pkill apache
+    sudo killall httpd || sudo pkill httpd
+    sudo killall apache2 || sudo pkill apache2
+    echo "Apache server shouldn't working"
+    wget http://localhost > /dev/null && exit 100
 
 
     ${APACHE_CTL} start
     sudo ${APACHE_CTL} start
-
+    set -e
     wget http://localhost > /dev/null || (echo "Apache server doesn't work property" && exit 100 )
 
 }
